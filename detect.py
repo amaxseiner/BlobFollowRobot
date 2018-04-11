@@ -1,4 +1,6 @@
-
+# this code uses the piCam to find the x and y coordinates in terms
+# of the FOV of the piCam. Then sends the x and y coordinates via
+# ros to the listener that does the motor control
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import numpy as np

@@ -1,4 +1,9 @@
 #!/usr/bin/env python
+
+# This is the file that listens ros for the x and y coordinate offset
+# that is given by the piCam. Using the x offset I use a P controller
+# to turn the robot to get centered on the red blob
+
 import rospy
 from geometry_msgs.msg import Vector3
 import sys

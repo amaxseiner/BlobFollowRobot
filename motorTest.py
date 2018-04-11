@@ -1,4 +1,8 @@
 #!/usr/bin/python
+
+# This file is to just test motors when debugging
+# Not a part of the blob follow code base
+
 # Import required libraries
 import sys
 import time
