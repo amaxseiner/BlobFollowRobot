@@ -1,3 +1,4 @@
+
 from picamera.array import PiRGBArray
 from picamera import PiCamera
 import numpy as np
@@ -7,12 +8,12 @@ import rospy
 from geometry_msgs.msg import Vector3
 
 
-
-# initialize the camera and grab a reference to the raw camera capture
+# define the upper and lower bounds
 lower_red0 = np.array([0,50,50])
 upper_red0 = np.array([10,255,255])
 lower_red1 = np.array([170,50,50])
 upper_red1 = np.array([180,255,255])
+# define the FOV
 FOVW = 62.2
 FOVH = 48.8
 
@@ -23,13 +24,14 @@ camera.framerate = 60
 
 camera.start_preview() # camera head up time
 
-time.sleep(0.1)
+time.sleep(0.1) # give a little more time for the camera to warm up
 
-rawCapture = PiRGBArray(camera,size=(640,480))
-
+rawCapture = PiRGBArray(camera,size=(640,480)) # initialize the camera
+# define video capture
 stream = camera.capture_continuous(rawCapture,format="bgr", use_video_port=True)
-
+# define ros publisher I will be publishing our x,y coordinates to 
 pub = rospy.Publisher('object_center', Vector3, queue_size=10)
+# initialize our node as camera
 rospy.init_node('camera', anonymous=True)
 
 def getNormAndFOV(FOVx,FOVy,mask,x,y):
@@ -74,9 +76,9 @@ for frame in stream:
 
 	# upper mask (170-180)
 	
-	#mask1 = cv2.inRange(img_hsv, lower_red1, upper_red1)
+	mask1 = cv2.inRange(img_hsv, lower_red1, upper_red1)
 
-	mask = mask0#+mask1
+	mask = mask0+mask1
 
 	#print mask
 	#output_img = img.copy()
@@ -94,9 +96,9 @@ for frame in stream:
 	#print (newX,newY) 
 	#print degrees
 	
-	cv2.circle(img,(newX,newY),25,(0,0,255),-1)
+	#cv2.circle(img,(newX,newY),25,(0,0,255),-1)
 	#cv2.imshow('mask',mask)
-	cv2.imshow('new',img)
+	#cv2.imshow('new',img)
 	#tock = time.time()
 	rawCapture.truncate(0)
 	tock = time.time()

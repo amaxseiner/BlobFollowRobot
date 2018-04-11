@@ -7,7 +7,7 @@ pub_data = Vector3()
 def callback(data):
     global pub_data
     pub_data = data
-    rospy.loginfo("x = " + str(data.x) + " y = " + str(data.y) + " z = " + str(data.z))
+    rospy.loginfo("x = " + str(data.x) + " y = " + str(data.y))
 def listener():
     global pub_data
     # In ROS, nodes are uniquely named. If two nodes with the same
