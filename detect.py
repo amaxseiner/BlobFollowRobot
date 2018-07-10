@@ -61,7 +61,10 @@ def getFOV(FOVx,FOVy,Point):
 
 def getCenter(mask):
 	M = cv2.moments(mask)
-	cx =  int(M['m10']/M['m00'])
+	if M['m00'] == 0:
+		cx = int(M['m10'])
+	else:
+		cx =  int(M['m10']/M['m00'])
 	cy =  int(M['m01']/M['m00'])
 	return (cx,cy)
 

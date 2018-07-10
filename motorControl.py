@@ -47,7 +47,7 @@ forwardsFast = (-2,2)
 #StepDir = -2 # Set to 1 or 2 for clockwise
             # Set to -1 or -2 for anti-clockwise
 
-WaitTime = (0.8)/float(1000)
+WaitTime = (0.5)/float(1000)
 
 StepCounterRight = 0
 StepCounterLeft = 0
@@ -121,6 +121,7 @@ def stepMotorRight(StepDir):
                 StepCounterRight = 0
         if (StepCounterRight<0):
                 StepCounterRight = StepCount+StepDir
+	time.sleep(WaitTime)
 
 def controlMotor(movement,stepLength):
 	global forwards,backwards,leftTurn,rightTurn
